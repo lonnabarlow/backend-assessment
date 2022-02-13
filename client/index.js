@@ -10,38 +10,54 @@ document.getElementById("complimentButton").onclick = function () {
           const data = response.data;
           alert(data);
         });
-
-
-buttn.addEventListener("click", onclick)
-};
+    
+}
 
 document.getElementById("fortuneButton").onclick = function () {
     axios.get("http://localhost:4000/api/fortune/")
     .then(function (response) {
         const data = response.data
         alert(data)
+        console.log(data)
     });
-    console.log(data)
 }
 
-let fortune = {
-   fortune: "Time for change"
-}
-document.getElementById("text").onclick = function () {
-    axios.post('http://localhost:4000/api/fortune/')
-     "Time for change"
+let affirmationDisplay = document.querySelector("#affirmationDisplay")
+let newAffirmation = document.querySelector("#affirmation")
+const addAffirmation = () => {
+    axios.post('http://localhost:4000/api/affirmations/', { 
+    affirmation: newAffirmation.value
+    })
     .then(function (response){
         const data = response.data
-        alert(data)
+        newAffirmation.value = ""
+     affirmationDisplay.innerHTML = data
     })
-};
+}
+
+ document.getElementById("affirmationBtn").onclick = function(){
+     addAffirmation()
+ }
     
+newAffirmation.addEventListener("keypress" , function (e) {
+    if (e.key === 'Enter') {
+        addAffirmation()
+    }
+});
 
+let deleteText = document.querySelector("#deleteText")
+document.getElementById("deleteFortune").onclick = function(){ 
+    axios.delete('http://localhost:4000/api/fortune/', {
+        data: { fortune: deleteText.value }
+    })
+        .then(function (response){
+            const data = response.data
+            alert(JSON.stringify(data))
+        })
 
-// axios.delete('http://localhost:4000/api/fortune/', fortune)
-//     .then(function (response))
+}
 
-//         console.log("fortune deleted")
+    
     
 // let fortuneUpdated = {
 //     newFortune: "You are enough"
@@ -51,5 +67,4 @@ document.getElementById("text").onclick = function () {
 
 
 
-app.listen(4000, () => console.log("Server is happily running on port 4000"))
        

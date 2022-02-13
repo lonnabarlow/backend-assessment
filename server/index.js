@@ -5,12 +5,14 @@ const ctrl = ("./controller")
 
 
 const app = express();
-let fortune = ["Your future is bright!", 
+let fortunes = ["Your future is bright!", 
         "You will succeed in life",
         "The past does not dictate your future", 
         "You can make tommorrow anything you want!",
         "Tomorrow is a new day!",
 ];
+
+let affirmationsArr = []
 
 app.use(cors());
 
@@ -32,36 +34,38 @@ app.get("/api/compliment", (req, res) => {
 
 app.get("/api/fortune", (req, res) => {
   
-  let randomIndex1 = Math.floor(Math.random() * fortune.length);
-  let randomFortune1 = fortune[randomIndex];
+  let randomIndex1 = Math.floor(Math.random() * fortunes.length);
+  let randomFortune1 = fortunes[randomIndex1];
 
   res.status(200).send(randomFortune1);
 
 });
-app.post("/api/fortune", (req, res) => {
+app.post("/api/affirmations", (req, res) => {
   console.log(req.body)
-  let fortune = req.body.fortune
-  res.status(200).send("Time for change")
+  let affirmation = req.body.affirmation
+  affirmationsArr.push(affirmation)
+  res.status(200).send(affirmation)
 })
 
 
 
-app.delete("/api/fortune/:fortune", (req, res) => {
-  let existingFortune = req.params.username
-  for(let i = 0; i < fortune.length; i++) {
-    if(fortune[i].fortune === existingFortune){
-      fortune.splice(i, 1)
-      res.status(200).send("fortune deleted")
+app.delete("/api/fortune/", (req, res) => {
+  console.log(req.body)
+  let existingFortune = req.body.fortune
+  for(let i = 0; i < fortunes.length; i++) {
+    if(fortunes[i] === existingFortune){
+      fortunes.splice(i, 1)
+      res.status(200).send({fortunes: fortunes, itemDeleted: existingFortune})
       return
     }
   }
-  res.status(400).send("fortune not found")
+  res.status(200).send("fortune not found")
 })
 
 
 
-app.put("/api/fortune/:fortune", (req, res) => {
-  let existingFortune = req.params.fortune
+app.put("/api/fortune/", (req, res) => {
+  let existingFortune = req.body.fortune
   let newFortune = req.body.fortune
   for(let i = 0; i < fortune.length; i++) {
     if(fortune[i].fortune === existingFortune) {
@@ -72,6 +76,6 @@ app.put("/api/fortune/:fortune", (req, res) => {
   }
   res.status(400).send("Oh no, fortune not found!")
 })
-console.log(fortune)
+console.log(fortunes)
 
 app.listen(4000, () => console.log("Server running on 4000"));
