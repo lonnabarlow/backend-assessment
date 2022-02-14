@@ -1,4 +1,46 @@
 body {
     background-color: lightcoral;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: darkolivegreen;
+
 }
 
+#complimentButton {
+    background-color: darkcyan;
+    border-radius: 10px;
+    height: 35px;
+    width: 140px;
+
+}
+
+#fortuneButton {
+    background-color: darkcyan;
+    border-radius: 10px;
+}
+
+#deleteFortune {
+    background-color: darkcyan;
+    border-radius: 10px;
+}
+#affirmationBtn {
+    background-color: darkcyan;
+    border-radius: 10px;
+}
+
+#frustrationButton {
+    background-color: darkcyan;
+    border-radius: 10px;
+}
+footer {
+    height: 100px;
+    width: 100%;
+    background-color: darkgray;
+    margin: 0px;
+    padding: 0px;
+
+}
+ h2 {
+     color: black;
+     font-family: Verdana, Geneva, Tahoma, sans-serif;
+     font-size: medium;
+ }
